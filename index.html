@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OS Studio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-panel">
+          <div class="brand-mark">OS</div>
+          <div>
+            <h1>OS Studio</h1>
+            <p>Operating System IDE</p>
+          </div>
+        </div>
+
+        <nav class="main-nav">
+          <button class="nav-btn active">Workspace</button>
+          <button class="nav-btn">Build</button>
+          <button class="nav-btn">Debug</button>
+          <button class="nav-btn">ISO</button>
+          <button class="nav-btn">Boot</button>
+        </nav>
+
+        <div class="project-panel">
+          <div class="panel-header">
+            <span>Projects</span>
+            <button class="mini-btn">+</button>
+          </div>
+          <ul class="project-list">
+            <li class="project-item selected">kernel-os</li>
+            <li class="project-item">bootloader</li>
+            <li class="project-item">drivers</li>
+            <li class="project-item">vm-debug</li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div class="breadcrumbs">workspace / kernel-os / x86</div>
+          <div class="toolbar">
+            <button class="tool-btn">Build</button>
+            <button class="tool-btn accent">Debug</button>
+            <button class="tool-btn">Compile</button>
+          </div>
+        </header>
+
+        <section class="statusbar">
+          <div class="status-pill">x86 Target</div>
+          <div class="status-pill success">QEMU Detected</div>
+          <div class="status-pill">ISO Ready</div>
+          <div class="status-pill warning">Bootloader: BIOS</div>
+        </section>
+
+        <section class="editor-layout">
+          <aside class="explorer-panel">
+            <div class="panel-header">
+              <span>Explorer</span>
+              <button class="mini-btn">Reveal</button>
+            </div>
+
+            <ul class="file-tree">
+              <li>src/
+                <ul>
+                  <li>kernel.c</li>
+                  <li>main.asm</li>
+                  <li>bootloader.asm</li>
+                </ul>
+              </li>
+              <li>include/
+                <ul>
+                  <li>kernel.h</li>
+                  <li>memory.h</li>
+                </ul>
+              </li>
+              <li>drivers/
+                <ul>
+                  <li>vga.c</li>
+                  <li>serial.c</li>
+                </ul>
+              </li>
+              <li>boot/
+                <ul>
+                  <li>grub.cfg</li>
+                  <li>stage2.asm</li>
+                </ul>
+              </li>
+              <li>x86/
+                <ul>
+                  <li>kernel.bin</li>
+                  <li>os.iso</li>
+                </ul>
+              </li>
+            </ul>
+          </aside>
+
+          <div class="code-panel">
+            <div class="tabbar">
+              <div class="tab active">kernel.c</div>
+              <div class="tab">bootloader.asm</div>
+              <div class="tab">Makefile</div>
+              <div class="tab">config.json</div>
+            </div>
+
+            <pre class="code-editor"><code><span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdint.h&gt;</span>
+
+<span class="type">void</span> <span class="fn">kmain</span>() {
+    <span class="fn">print</span>(<span class="string">"OS Studio booting..."</span>);
+    <span class="fn">init_memory</span>();
+    <span class="fn">init_vga</span>();
+    <span class="fn">launch_shell</span>();
+}
+
+<span class="type">int</span> <span class="fn">main</span>() {
+    <span class="fn">kmain</span>();
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</code></pre>
+          </div>
+
+          <aside class="inspector-panel">
+            <div class="panel-header">
+              <span>Build</span>
+              <button class="mini-btn">Run</button>
+            </div>
+
+            <div class="inspector-card">
+              <h3>Compiler</h3>
+              <div class="option-row">
+                <span>Architecture</span>
+                <select>
+                  <option>x86</option>
+                  <option>ARM</option>
+                </select>
+              </div>
+              <div class="option-row">
+                <span>Output</span>
+                <select>
+                  <option>ISO</option>
+                  <option>BIN</option>
+                  <option>EFI</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="inspector-card">
+              <h3>VM</h3>
+              <div class="vm-list">
+                <div class="vm-item">QEMU <span class="status-dot ok"></span></div>
+                <div class="vm-item">VirtualBox <span class="status-dot warn"></span></div>
+                <div class="vm-item">VMware <span class="status-dot off"></span></div>
+              </div>
+              <button class="tool-btn wide">Reveal Installed Tools</button>
+            </div>
+
+            <div class="inspector-card">
+              <h3>System Needs</h3>
+              <ul class="feature-list">
+                <li>Kernel entry</li>
+                <li>Memory map</li>
+                <li>Bootloader</li>
+                <li>Driver layer</li>
+                <li>Shell / init</li>
+                <li>Disk image</li>
+              </ul>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
